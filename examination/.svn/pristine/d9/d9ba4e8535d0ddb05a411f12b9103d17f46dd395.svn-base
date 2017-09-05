@@ -1,0 +1,43 @@
+<!--login.wxml-->
+<view class="page">
+  <form bindsubmit="login">
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{hasError}}">{{errorMessage}}</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view wx:if="{{usernameError}}" class="weui-cell__hd  weui-cell_warn">
+          <view class="weui-label">用户名</view>
+        </view>
+        <view wx:else class="weui-cell__hd">
+          <view class="weui-label">用户名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="username" value="{{username}}" bindinput="userNameBindinput" bindblur="userNameBindblur" placeholder="请输入您的用户名" maxlength="10" />
+        </view>
+        <view wx:if="{{usernameError}}" class="weui-cell__ft">
+          <icon type="warn" size="23" color="#E64340"></icon>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view wx:if="{{passwordError}}" class="weui-cell__hd  weui-cell_warn">
+          <view class="weui-label">密码</view>
+        </view>
+        <view wx:else class="weui-cell__hd">
+          <view class="weui-label">密码</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="password" value="{{password}}" type="password" bindinput="passwordBindinput" bindblur="passwordBindblur" placeholder="请输入您的密码" maxlength="20" />
+        </view>
+        <view wx:if="{{passwordError}}" class="weui-cell__ft">
+          <icon type="warn" size="23" color="#E64340"></icon>
+        </view>
+      </view>
+    </view>
+
+    <view class="page__bd page__bd_spacing">
+      <button class="weui-btn" type="primary" formType="submit">登录</button>
+      <button class="weui-btn" type="primary" bindtap="register">注册</button>
+      <button class="weui-btn" type="warn" bindtap="forgetPassword">忘记密码</button>
+      <button class="weui-btn" type="primary" disabled bindtap="wxLogin">微信登录</button>
+    </view>
+  </form>
+</view>

@@ -1,0 +1,90 @@
+<!--answer.wxml-->
+<view class="page">
+    <!--试卷大题数据-->
+    <view wx:for="{{exam_data}}" wx:key="value" wx:for-item="big_exam" id="{{big_exam.id}}" class="{{big_exam_css[big_exam.id]}}">
+      <view class="exam_subtitle">{{big_exam.index}}、{{big_exam.title}} </view>
+
+      <!--题目数据-->
+      <view wx:for="{{big_exam.questionList}}" wx:key="value" wx:for-item="small_exam" id="{{small_exam.id}}" class="{{small_exam_css[small_exam.id]}}">
+        <view class="weui-cells__title">{{small_exam.title}}【题目得分{{scores[small_exam.id]}}】</view>
+        <view class="weui-cells__title">{{small_exam.content}}</view>
+
+        <!--S-单选题-->
+        <view wx:if="{{small_exam.type=='S'}}" class="weui-cells weui-cells_after-title">
+          <radio-group class="radio-group" id="{{small_exam.id}}">
+            <label class="weui-cell weui-check__label" wx:key="value" wx:for="{{small_exam.optionList}}">
+               <radio value="{{item.id}}" id="{{small_exam.id}}" disabled="true" checked="{{optionRecords[small_exam.id][item.id]}}"/>{{item.content}}
+            </label>
+          </radio-group>
+        </view>
+
+        <!--M-多选题-->
+        <view wx:if="{{small_exam.type=='M'}}" class="weui-cells weui-cells_after-title">
+          <checkbox-group id="{{small_exam.id}}">
+            <label class="weui-cell weui-check__label" wx:key="value" wx:for-items="{{small_exam.optionList}}">
+            <checkbox value="{{item.id}}" id="{{small_exam.id}}" disabled="true" checked="{{optionRecords[small_exam.id][item.id]}}"/>{{item.content}}
+        </label>
+          </checkbox-group>
+        </view>
+
+        <!--C-不定项选择题-->
+        <view wx:if="{{small_exam.type=='C'}}" class="weui-cells weui-cells_after-title">
+          <checkbox-group id="{{small_exam.id}}">
+            <label class="weui-cell weui-check__label" wx:key="value" wx:for-items="{{small_exam.optionList}}">
+            <checkbox value="{{item.id}}" id="{{small_exam.id}}" disabled="true" checked="{{optionRecords[small_exam.id][item.id]}}"/>{{item.content}}
+        </label>
+          </checkbox-group>
+        </view>
+
+        <!--T-判断题-->
+        <view wx:if="{{small_exam.type=='T'}}" class="weui-cells weui-cells_after-title">
+          <radio-group class="radio-group" id="{{small_exam.id}}">
+            <label class="weui-cell weui-check__label">
+            <radio value="true" id="{{small_exam.id}}" disabled="true" checked="{{answers[small_exam.id][0]=='true'}}"/>对
+          </label>
+            <label class="weui-cell weui-check__label">
+            <radio value="false" id="{{small_exam.id}}" disabled="true" checked="{{answers[small_exam.id][0]=='false'}}"/>错
+          </label>
+          </radio-group>
+        </view>
+
+        <!--F-填空题-->
+        <view wx:if="{{small_exam.type=='F'}}" class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input" wx:key="value" wx:for-items="{{small_exam.optionList}}">
+            <view class="weui-cell__bd" >
+              <input class="weui-input" id="F_{{small_exam.id}}_{{item.id}}" disabled="true" value="{{answers[small_exam.id][item.id]}}"/>
+            </view>
+          </view>
+        </view>
+
+        <!--A-问答题-->
+        <view wx:if="{{small_exam.type=='A'}}" class="weui-cells weui-cells_after-title">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <textarea class="weui-textarea" id="{{small_exam.id}}"  disabled="true" value="{{answers[small_exam.id][0]}}" style="height: 3.3em"/>
+            </view>
+          </view>
+        </view>
+
+      </view>
+
+
+    </view>
+
+
+</view>
+
+<view class="fixbuttom">
+  <view class="weui-flex">
+    <view class="weui-flex__item shang" catchtap="perv_exam">
+      上一题
+    </view>
+    <view class="weui-flex__item">
+      {{now_exam}}/{{max_exam}}
+    </view>
+    <view class="weui-flex__item xia" catchtap="next_exam">
+      下一题
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,75 @@
+<!--register.wxml-->
+<view class="page">
+  <form bindsubmit="register">
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{hasError}}">{{errorMessage}}</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view wx:if="{{usernameError}}" class="weui-cell__hd  weui-cell_warn">
+          <view class="weui-label">用户名</view>
+        </view>
+        <view wx:else class="weui-cell__hd">
+          <view class="weui-label">用户名</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="username" value="{{username}}" bindinput="userNameBindinput" bindblur="userNameBindblur" placeholder="请输入您的用户名" maxlength="10" />
+        </view>
+        <view wx:if="{{usernameError}}" class="weui-cell__ft">
+          <icon type="warn" size="23" color="#E64340"></icon>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view wx:if="{{emailError}}" class="weui-cell__hd  weui-cell_warn">
+          <view class="weui-label">邮箱</view>
+        </view>
+        <view wx:else class="weui-cell__hd">
+          <view class="weui-label">邮箱</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="email" value="{{email}}" bindinput="emailBindinput" bindblur="emailBindblur" type="text" placeholder="请输入您的邮箱" maxlength="50" />
+        </view>
+        <view wx:if="{{emailError}}" class="weui-cell__ft">
+          <icon type="warn" size="23" color="#E64340"></icon>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view wx:if="{{passwordError}}" class="weui-cell__hd  weui-cell_warn">
+          <view class="weui-label">密码</view>
+        </view>
+        <view wx:else class="weui-cell__hd">
+          <view class="weui-label">密码</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="password" value="{{password}}" type="password" bindinput="passwordBindinput" bindblur="passwordBindblur" placeholder="请输入您的密码" maxlength="20" />
+        </view>
+        <view wx:if="{{passwordError}}" class="weui-cell__ft">
+          <icon type="warn" size="23" color="#E64340"></icon>
+        </view>
+      </view>
+
+      <view class="weui-cell weui-cell_input">
+        <view wx:if="{{rePasswordError}}" class="weui-cell__hd  weui-cell_warn">
+          <view class="weui-label">确认密码</view>
+        </view>
+        <view wx:else class="weui-cell__hd">
+          <view class="weui-label">确认密码</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" name="rePassword" value="{{rePassword}}" type="password" bindinput="rePasswordBindinput" bindblur="rePasswordBindblur" placeholder="请再次输入密码" maxlength="20" />
+        </view>
+        <view wx:if="{{rePasswordError}}" class="weui-cell__ft">
+          <icon type="warn" size="23" color="#E64340"></icon>
+        </view>
+      </view>
+    </view>
+
+    <view class="page__bd page__bd_spacing">
+
+      <button class="weui-btn" type="primary" formType="submit">注册</button>
+
+      <button class="weui-btn" type="warn" bindtap="doreturn">返回</button>
+
+    </view>
+  </form>
+</view>

@@ -1,0 +1,75 @@
+<!--desc.wxml-->
+<view class="page">
+  <view class="weui-panel">
+
+    <view class="weui-panel__hd exam_title">{{title}} 
+      <view class="weui-badge score" wx:if="{{ nill != examdata.extra.attendance &&  examdata.extra.attendance.totalAttempt > 0}}">{{examdata.extra.attendance.finalScore}}分</view>
+    </view>
+
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">考试次数</view>
+        <view class="weui-cell__ft" wx:if="{{ nill == examdata.extra.attendance ||  examdata.extra.attendance.totalAttempt <= 0}}">剩余{{examdata.resources[0].attempt}}次</view>
+        <view class="weui-cell__ft" wx:if="{{ nill != examdata.extra.attendance &&  examdata.extra.attendance.totalAttempt > 0}}">剩余{{examdata.resources[0].attempt+1-examdata.extra.attendance.totalAttempt}}次</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">考试时长</view>
+        <view class="weui-cell__ft" wx:if="{{ examtime <=0 }}">不限</view>
+        <view class="weui-cell__ft" wx:if="{{ examtime >0 }}">{{examtime}}分钟</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">卷面总分</view>
+        <view class="weui-cell__ft">{{examdata.resources[0].score}}分</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">合格分数</view>
+        <view class="weui-cell__ft">{{examdata.resources[0].passPercentage}}分</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">开始时间</view>
+        <view class="weui-cell__ft">{{examdata.enrollStartDatetime}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__bd">结束时间</view>
+        <view class="weui-cell__ft">{{examdata.enrollEndDatetime}}</view>
+      </view>
+    </view>
+
+    <view class="weui-panel__bd">
+
+      <view class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">目标</view>
+        <view class="weui-media-box__desc">{{examdata.objective}}</view>
+      </view>
+
+      <view class="weui-media-box weui-media-box_text">
+        <view class="weui-media-box__title weui-media-box__title_in-text">简介</view>
+        <view class="weui-media-box__desc">{{examdata.description}}</view>
+      </view>
+
+    </view>
+
+  </view>
+
+  <view class="page__bd page__bd_spacing">
+    <button class="weui-btn" type="primary" bindtap="enroll" wx:if="{{ nill == examdata.extra.enrollment }}">立即报名</button>
+
+    <button class="weui-btn" type="primary" disabled="true" wx:if="{{ examdata.extra.enrollInd == 'false' }}">{{enrollStatusTxt[enrollStatus]}}</button>
+
+    <button class="weui-btn" type="warn" bindtap="register" bindtap="openExam" wx:if="{{  nill != examdata.extra.enrollment && (nill == examdata.extra.attendance ||  examdata.extra.attendance.totalAttempt <= 0) }}">进入考试</button>
+
+    <view class="weui-flex" wx:if="{{ nill != examdata.extra.attendance &&  examdata.extra.attendance.totalAttempt > 0 && examdata.resources[0].scoringInd != 'true' }}">
+      <view class="weui-flex__item"><button class="weui-btn" type="primary" bindtap="openExam">再考一次</button></view>
+      <view class="weui-flex__item"><button class="weui-btn" type="primary" bindtap="historylist">历史记录</button></view>
+    </view>
+
+    <view class="weui-flex" wx:if="{{ examdata.resources[0].scoringInd == 'true' }}">
+      <view class="weui-flex__item"><button class="weui-btn" type="primary" disabled="true">评卷中</button></view>
+      <view class="weui-flex__item"><button class="weui-btn" type="primary" bindtap="historylist">历史记录</button></view>
+    </view>
+
+    <button class="weui-btn" type="warn" bindtap="ranking" id="{{examdata.extra.attendance.activityId}}" wx:if= wx:if="{{ nill != examdata.extra.attendance &&  examdata.extra.enrollInd != 'false' }}">成绩排行榜</button>
+
+  </view>
+
+</view>
