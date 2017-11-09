@@ -1,0 +1,29 @@
+/**index.wxss**/
+
+.section>view {
+    margin-top: 20rpx;
+}
+.section label {
+    color: #8b8b87;
+    text-align: left;
+    width: 80rpx;
+    margin-right: 40rpx;
+}
+
+.score {
+    float: right;
+    font-size: 16pt;
+    text-decoration: underline;
+}
+
+.footer {
+    width: 95%;
+}
+.footer view {
+    padding: 20rpx;
+}
+.footer view.col {
+    display: inline-block;
+}
+
+

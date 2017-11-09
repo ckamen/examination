@@ -1,0 +1,32 @@
+/**index.wxss**/
+
+.weui-flex__item {
+    padding: 20rpx;
+}
+.space {
+    width: 60rpx;
+    display: inline-block;
+}
+
+.btn-area {
+    margin: 40rpx 20rpx 0;
+}
+
+button {
+    margin-top: 20rpx;
+}
+
+button.register {
+    float: right;
+    border: 0;
+}
+
+.img-wrapper {
+    text-align: center;
+    margin: 60rpx 0;
+}
+.img-wrapper image {
+    width: 128px;
+    height: 128px;
+}
+

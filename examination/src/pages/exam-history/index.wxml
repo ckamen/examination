@@ -1,0 +1,29 @@
+<!--index.wxml-->
+<view class="content mg-bottom">
+    <view wx:for="{{paperRecords}}" wx:key="id" data-session-id="{{item.learningSessionId}}" class="item" hover-class="item-hover"
+          bindtap="goViewResult">
+        <view class="left">
+            <view class="datetime">
+                <text>{{item.createdAt}}</text>
+            </view>
+            <view class="score">
+                <text wx:if="{{item.scoreStatus == 2}}" ><text class="{{item.attendanceStatus}}">{{item.score}}</text>分</text>
+                <text wx:else>--</text>
+            </view>
+            <view class="status">
+                <text class="{{item.attendanceStatus}}">{{item.statusText}}</text>
+            </view>
+        </view>
+        <view class="indicator">
+            <image src="../../icon/arrow-right.png" mode="scaleToFill"></image>
+        </view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line" wx:if="{{noDataLabel != ''}}">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">{{noDataLabel}}</view>
+    </view>
+</view>
+<view class="footer" >
+    <view class="submit-area">
+        <button type="primary" bindtap="goViewRanking">查看排行榜</button>
+    </view>
+</view>

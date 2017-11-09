@@ -1,0 +1,43 @@
+/**index.wxss**/
+.item {
+    background: #ffffff;
+    border-bottom: 1rpx solid #f1f1f1;
+    padding-bottom: 20rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20rpx;
+}
+.item-hover {
+    opacity: 0.5;
+}
+
+.item .left {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item .datetime {
+    width: 320rpx;
+}
+.item .score {
+    width: 100rpx;
+    display: flex;
+    justify-content: flex-end;
+}
+.item .status {
+    float: right;
+}
+
+.indicator {
+    padding-top: 20rpx;
+}
+
+.indicator image {
+    width: 24px;
+    height: 24px;
+}
