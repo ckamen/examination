@@ -61,7 +61,7 @@ page{
 .section {
     font-size: 12pt;
     color: #242725;
-    border-bottom: 1rpx solid #f1f1f1;
+    border-bottom: 1rpx solid #dadada;
     padding: 20rpx 0;
 }
 
@@ -72,13 +72,6 @@ page{
 
 .mg-bottom {
     margin-bottom: 200rpx;
-}
-
-.PASS {
-    color: #25dc38;
-}
-.FAIL {
-    color: #ff0000;
 }
 
 .k_bg_green {
