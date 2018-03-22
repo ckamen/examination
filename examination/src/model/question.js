@@ -217,18 +217,16 @@ class QuestionRecord {
 
     formatCorrectStatusLabel() {
         switch (this.correctStatus) {
-            case -1:
-                this.correctStatusLabel = '没有答题';
-                break;
             case 0:
+            case 1:
                 this.correctStatusLabel = '错误';
                 this.statusClass = 'wrong';
                 break;
-            case 1:
+            case 2:
                 this.correctStatusLabel = '部分正确';
                 this.statusClass = 'half_correct';
                 break;
-            case 2:
+            case 3:
                 this.correctStatusLabel = '完全正确';
                 this.statusClass = 'correct';
                 break;

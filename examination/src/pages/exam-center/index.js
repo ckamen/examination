@@ -51,7 +51,7 @@ Page({
 
         if (this.data.activeIndex === MY_EXAM_INDEX && !this.data.init2) {
             this.data.init2 = true;
-            this.getMyExamData();
+            this._getMyExamData();
         }
     },
     /**
@@ -59,7 +59,17 @@ Page({
      * 避免Token无效时需要跳转到登录页面时出现的问题
      */
     onReady: function () {
-        this.getExamCenterData();
+        let scene = app.globalData.scene;
+        let path = app.globalData.path;
+        let activityId = app.globalData.activityId;
+
+        if ((scene === '1047' || scene === '1048' || scene === '1049'
+                || scene === '1011' || scene === '1012' || scene === '1013')
+            && path === 'pages/exam-detail/index') {
+            util.navigateTo("/pages/exam-detail/index?id=" + activityId);
+            app.clearPath();
+        }
+        this._getExamCenterData();
     },
     onPullDownRefresh: function () {
         if (this.data.activeIndex === EXAM_CENTER_INDEX) {
@@ -68,36 +78,35 @@ Page({
                 page: 1,
                 noDataLabel: ''
             });
-            this.getExamCenterData();
+            this._getExamCenterData();
         } else {
             this.setData({
                 examList2: [],
                 page2: 1,
                 noDataLabel2: ''
             });
-            this.getMyExamData();
+            this._getMyExamData();
         }
         setTimeout(() => {
             wx.stopPullDownRefresh();
         }, constants.PULL_DOWN_STOP_TIME);
     },
-
     onReachBottom: function () {
         if (this.data.activeIndex === EXAM_CENTER_INDEX) {
             this.setData({
                 page: this.data.page + 1
             });
-            this.getExamCenterData();
+            this._getExamCenterData();
         } else {
             this.setData({
                 page2: this.data.page2 + 1
             });
-            this.getMyExamData();
+            this._getMyExamData();
         }
 
     },
-    getExamCenterData: function () {
-        this.getRemoteData(this.data.page, this.data.limit, http.URL_EVALUATION_LIST,
+    _getExamCenterData: function () {
+        this._getRemoteData(this.data.page, this.data.limit, http.URL_EVALUATION_LIST,
             this.data.examList, (label, list) => {
                 list = list || this.data.examList;
                 this.setData({
@@ -106,8 +115,8 @@ Page({
                 });
             });
     },
-    getMyExamData: function () {
-        this.getRemoteData(this.data.page2, this.data.limit2, http.URL_MY_EVALUATION_LIST,
+    _getMyExamData: function () {
+        this._getRemoteData(this.data.page2, this.data.limit2, http.URL_MY_EVALUATION_LIST,
             this.data.examList2, (label, list) => {
                 list = list || this.data.examList2;
                 this.setData({
@@ -116,7 +125,7 @@ Page({
                 });
             });
     },
-    getRemoteData: function (page, limit, url, list, callback) {
+    _getRemoteData: function (page, limit, url, list, callback) {
         let params = {
             page: page,
             limit: limit
@@ -125,8 +134,8 @@ Page({
             if (result.numberOfElements > 0) {
                 for (let item of result.content) {
                     let exam = new model.Activity(item);
-                    if(item.extra && item.extra.attendance) {
-                        exam.attendance= new model.ActivityAttendance(item.extra.attendance);
+                    if (item.extra && item.extra.attendance) {
+                        exam.attendance = new model.ActivityAttendance(item.extra.attendance);
                     }
                     list.push(exam);
                 }
