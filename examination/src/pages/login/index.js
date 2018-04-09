@@ -18,11 +18,15 @@ Page({
     formSubmit: function (event) {
         if (this._validUsername(event.detail.value.username)
             && this._validPassword(event.detail.value.password)) {
+            let params = {
+                username: util.aesEncrypt(event.detail.value.username),
+                password: util.aesEncrypt(event.detail.value.password)
+            };
             this.setData({
                 submitDisabled: true,
                 submitLoading: true
             });
-            http.post(http.URL_LOGIN, event.detail.value, data => {
+            http.post(http.URL_LOGIN, params, data => {
                 wx.setStorageSync(constants.TOKEN, data.token);
                 wx.reLaunch({
                     url: '/pages/exam-center/index'

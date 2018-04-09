@@ -1,3 +1,5 @@
+var Crypto = require('../libs/cryptojs/cryptojs.js').Crypto;
+
 const formatTime = date => {
     const year = date.getFullYear()
     const month = date.getMonth() + 1
@@ -88,6 +90,25 @@ function navigateTo(url, success) {
     });
 }
 
+function aesEncrypt (word){
+    var mode = new Crypto.mode.CBC(Crypto.pad.pkcs7);
+    var eb = Crypto.charenc.UTF8.stringToBytes(word);
+    var kb = Crypto.charenc.UTF8.stringToBytes("1234567812345678");//KEY
+    var vb = Crypto.charenc.UTF8.stringToBytes("1234567812345678");//IV
+    var ub = Crypto.AES.encrypt(eb,kb,{iv:vb,mode:mode,asBytes:true});
+    var encrypted = Crypto.util.bytesToHex(Crypto.charenc.UTF8.stringToBytes(Crypto.util.bytesToBase64(ub)));
+    return encrypted;
+}
+function aesDecrypt (word){
+    var mode = new Crypto.mode.CBC(Crypto.pad.pkcs7);
+    var eb = Crypto.util.base64ToBytes(Crypto.charenc.UTF8.bytesToString(Crypto.util.hexToBytes(word)));
+    var kb = Crypto.charenc.UTF8.stringToBytes("1234567812345678");//KEY
+    var vb = Crypto.charenc.UTF8.stringToBytes("1234567812345678");//IV
+    var ub = Crypto.AES.decrypt(eb,kb,{asBytes:true,mode:mode,iv:vb});
+    var decrypted = Crypto.charenc.UTF8.bytesToString(ub);
+    return decrypted;
+}
+
 module.exports = {
     formatTime: formatTime,
     formatDatetime: formatDatetime,
@@ -97,5 +118,7 @@ module.exports = {
     showLoading: showLoading,
     trim: trim,
     redirectTo: redirectTo,
-    navigateTo: navigateTo
+    navigateTo: navigateTo,
+    aesEncrypt: aesEncrypt,
+    aesDecrypt: aesDecrypt
 }

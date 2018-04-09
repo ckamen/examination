@@ -26,7 +26,10 @@ Page({
     },
     logoutHandle: function () {
         util.showConfirm('确定要注销登录吗？', () => {
-            http.get(http.URL_LOGOUT, {}, (result) => {
+            let params = {
+                token: wx.getStorageSync(constants.TOKEN)
+            }
+            http.get(http.URL_LOGOUT, params, (result) => {
                 wx.clearStorageSync();
                 http.clearToken();
                 util.redirectTo('/pages/login/index');
